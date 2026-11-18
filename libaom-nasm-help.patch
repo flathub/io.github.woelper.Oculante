@@ -1,0 +1,11 @@
+Query the optimization flags and object formats with NASM 3.
+Based on the NASM help fix in NetBSD pkgsrc:
+https://mail-index.netbsd.org/pkgsrc-changes/2026/05/14/msg346173.html
+
+--- a/cargo/vendor/libaom-sys-0.17.2+libaom.3.11.0/vendor/build/cmake/aom_optimization.cmake
++++ b/cargo/vendor/libaom-sys-0.17.2+libaom.3.11.0/vendor/build/cmake/aom_optimization.cmake
+@@ -214,3 +214,3 @@
+ function(test_nasm)
+-  execute_process(COMMAND ${CMAKE_ASM_NASM_COMPILER} -hf
++  execute_process(COMMAND ${CMAKE_ASM_NASM_COMPILER} -h all
+                   OUTPUT_VARIABLE nasm_helptext)

@@ -1,7 +1,7 @@
 {
   "app-id": "io.github.woelper.Oculante",
   "runtime": "org.freedesktop.Platform",
-  "runtime-version": "24.08",
+  "runtime-version": "26.08",
   "sdk": "org.freedesktop.Sdk",
   "sdk-extensions": ["org.freedesktop.Sdk.Extension.rust-stable"],
   "command": "oculante",
@@ -26,20 +26,28 @@
         }
       },
       "build-commands": [
-        "cargo --offline fetch --manifest-path Cargo.toml --verbose",
-        "cargo --offline build --release --verbose",
+        "cargo --offline fetch --locked --manifest-path Cargo.toml --verbose",
+        "cargo --offline build --locked --release --verbose --no-default-features --features turbo,avif_native,notan/shaderc,j2k,jxlcms",
         "install -Dm644 ./res/flathub/$FLATPAK_ID.desktop /app/share/applications/$FLATPAK_ID.desktop",
-        "install -Dm644 ./res/flathub/$FLATPAK_ID.metainfo.xml /app/share/appdata/$FLATPAK_ID.metainfo.xml",
+        "install -Dm644 ./res/flathub/$FLATPAK_ID.metainfo.xml /app/share/metainfo/$FLATPAK_ID.metainfo.xml",
         "install -Dm644 ./res/icons/icon.png /app/share/icons/hicolor/256x256/apps/$FLATPAK_ID.png",
         "install -Dm755 ./target/release/oculante -t /app/bin/"
       ],
       "sources": [
         {
           "type": "archive",
-          "url": "https://github.com/woelper/oculante/archive/refs/tags/0.9.2.tar.gz",
-          "sha256": "c79bc52b1d919b4ba702b4b1edad0d734287af80c592e8b5bb7bf7d70f1b0497"
+          "url": "https://github.com/woelper/oculante/archive/refs/tags/0.9.6.tar.gz",
+          "sha256": "1add7a6cefeaba4df250f021dcde4bf101c8f930813624cd75e0510425898216"
         },
-        "cargo-sources.json"
+        {
+          "type": "patch",
+          "path": "appstream-releases.patch"
+        },
+        "cargo-sources.json",
+        {
+          "type": "patch",
+          "path": "libaom-nasm-help.patch"
+        }
       ]
     }
   ]
